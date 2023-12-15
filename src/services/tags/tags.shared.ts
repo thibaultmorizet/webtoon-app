@@ -9,7 +9,7 @@ export type TagClientService = Pick<TagService<Params<TagQuery>>, (typeof tagMet
 
 export const tagPath = 'tags'
 
-export const tagMethods = ['find', 'get', 'create', 'update', 'patch', 'remove'] as const
+export const tagMethods = ['find', 'get', 'create', 'patch', 'remove'] as const
 
 export const tagClient = (client: ClientApplication) => {
   const connection = client.get('connection')

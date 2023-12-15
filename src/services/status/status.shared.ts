@@ -9,7 +9,7 @@ export type StatusClientService = Pick<StatusService<Params<StatusQuery>>, (type
 
 export const statusPath = 'status'
 
-export const statusMethods = ['find', 'get', 'create', 'update', 'patch', 'remove'] as const
+export const statusMethods = ['find', 'get', 'create', 'patch', 'remove'] as const
 
 export const statusClient = (client: ClientApplication) => {
   const connection = client.get('connection')

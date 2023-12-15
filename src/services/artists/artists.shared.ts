@@ -9,7 +9,7 @@ export type ArtistClientService = Pick<ArtistService<Params<ArtistQuery>>, (type
 
 export const artistPath = 'artists'
 
-export const artistMethods = ['find', 'get', 'create', 'update', 'patch', 'remove'] as const
+export const artistMethods = ['find', 'get', 'create', 'patch', 'remove'] as const
 
 export const artistClient = (client: ClientApplication) => {
   const connection = client.get('connection')

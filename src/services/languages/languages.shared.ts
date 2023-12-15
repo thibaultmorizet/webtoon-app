@@ -12,7 +12,7 @@ export type LanguageClientService = Pick<
 
 export const languagePath = 'languages'
 
-export const languageMethods = ['find', 'get', 'create', 'update', 'patch', 'remove'] as const
+export const languageMethods = ['find', 'get', 'create', 'patch', 'remove'] as const
 
 export const languageClient = (client: ClientApplication) => {
   const connection = client.get('connection')

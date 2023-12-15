@@ -9,7 +9,7 @@ export type StudioClientService = Pick<StudioService<Params<StudioQuery>>, (type
 
 export const studioPath = 'studios'
 
-export const studioMethods = ['find', 'get', 'create', 'update', 'patch', 'remove'] as const
+export const studioMethods = ['find', 'get', 'create', 'patch', 'remove'] as const
 
 export const studioClient = (client: ClientApplication) => {
   const connection = client.get('connection')

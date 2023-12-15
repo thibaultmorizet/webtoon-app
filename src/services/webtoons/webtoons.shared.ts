@@ -9,7 +9,7 @@ export type WebtoonClientService = Pick<WebtoonService<Params<WebtoonQuery>>, (t
 
 export const webtoonPath = 'webtoons'
 
-export const webtoonMethods = ['find', 'get', 'create', 'update', 'patch', 'remove'] as const
+export const webtoonMethods = ['find', 'get', 'create', 'patch', 'remove'] as const
 
 export const webtoonClient = (client: ClientApplication) => {
   const connection = client.get('connection')

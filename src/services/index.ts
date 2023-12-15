@@ -1,3 +1,4 @@
+import { webtoonsTags } from './webtoonsTags/webtoonsTags'
 import { webtoon } from './webtoons/webtoons'
 import { artist } from './artists/artists'
 import { tag } from './tags/tags'
@@ -11,6 +12,7 @@ import { user } from './users/users'
 import type { Application } from '../declarations'
 
 export const services = (app: Application) => {
+  app.configure(webtoonsTags)
   app.configure(webtoon)
   app.configure(artist)
   app.configure(tag)

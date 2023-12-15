@@ -9,7 +9,7 @@ export type AuthorClientService = Pick<AuthorService<Params<AuthorQuery>>, (type
 
 export const authorPath = 'authors'
 
-export const authorMethods = ['find', 'get', 'create', 'update', 'patch', 'remove'] as const
+export const authorMethods = ['find', 'get', 'create', 'patch', 'remove'] as const
 
 export const authorClient = (client: ClientApplication) => {
   const connection = client.get('connection')

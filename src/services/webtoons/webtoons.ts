@@ -44,7 +44,11 @@ export const webtoon = (app: Application) => {
       all: [schemaHooks.validateQuery(webtoonQueryValidator), schemaHooks.resolveQuery(webtoonQueryResolver)],
       find: [],
       get: [],
-      create: [schemaHooks.validateData(webtoonDataValidator), schemaHooks.resolveData(webtoonDataResolver), webtoonCreateCheck],
+      create: [
+        schemaHooks.validateData(webtoonDataValidator),
+        schemaHooks.resolveData(webtoonDataResolver),
+        webtoonCreateCheck
+      ],
       patch: [schemaHooks.validateData(webtoonPatchValidator), schemaHooks.resolveData(webtoonPatchResolver)],
       remove: []
     },

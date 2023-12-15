@@ -18,7 +18,7 @@ export type CategoryClientService = Pick<
 
 export const categoryPath = 'categories'
 
-export const categoryMethods = ['find', 'get', 'create', 'update', 'patch', 'remove'] as const
+export const categoryMethods = ['find', 'get', 'create', 'patch', 'remove'] as const
 
 export const categoryClient = (client: ClientApplication) => {
   const connection = client.get('connection')
