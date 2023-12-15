@@ -12,9 +12,9 @@ export async function up(knex: Knex): Promise<void> {
     table.integer('studio_id')
     table.integer('language_id')
     table.integer('status_id')
-    table.date('created_at').defaultTo(knex.fn.now())
-    table.date('updated_at').defaultTo(null)
-    table.date('deleted_at').defaultTo(null)
+    table.date('created_at')
+    table.date('updated_at')
+    table.date('deleted_at')
     
     table.foreign('studio_id').references('id').inTable('studios')
     table.foreign('language_id').references('id').inTable('languages')

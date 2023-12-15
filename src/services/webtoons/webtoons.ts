@@ -17,6 +17,7 @@ import {
 import type { Application } from '../../declarations'
 import { WebtoonService, getOptions } from './webtoons.class'
 import { webtoonPath, webtoonMethods } from './webtoons.shared'
+import { webtoonCreateCheck } from '../../hooks/webtoonCreateCheck'
 
 export * from './webtoons.class'
 export * from './webtoons.schema'
@@ -43,7 +44,7 @@ export const webtoon = (app: Application) => {
       all: [schemaHooks.validateQuery(webtoonQueryValidator), schemaHooks.resolveQuery(webtoonQueryResolver)],
       find: [],
       get: [],
-      create: [schemaHooks.validateData(webtoonDataValidator), schemaHooks.resolveData(webtoonDataResolver)],
+      create: [schemaHooks.validateData(webtoonDataValidator), schemaHooks.resolveData(webtoonDataResolver), webtoonCreateCheck],
       patch: [schemaHooks.validateData(webtoonPatchValidator), schemaHooks.resolveData(webtoonPatchResolver)],
       remove: []
     },
