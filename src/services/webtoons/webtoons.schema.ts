@@ -5,6 +5,7 @@ import { Type, getValidator, querySyntax } from '@feathersjs/typebox'
 
 import type { HookContext } from '../../declarations'
 import { dataValidator, queryValidator } from '../../validators'
+import { categorySchema } from '../categories/categories.schema'
 import { languageSchema } from '../languages/languages.schema'
 import { statusSchema } from '../status/status.schema'
 import { studioSchema } from '../studios/studios.schema'
@@ -26,7 +27,8 @@ export const webtoonSchema = Type.Object(
     status_id: Type.Number(),
     status: Type.Ref(statusSchema),
 
-    tags: Type.Array(Type.Ref(tagSchema), { maxItems: 3, minItems: 0 }),
+    tags: Type.Array(Type.Ref(tagSchema)),
+    categories: Type.Array(Type.Ref(categorySchema)),
 
     created_at: Type.String({ format: 'date' }),
     updated_at: Type.String({ format: 'date' }),
@@ -50,14 +52,28 @@ export const webtoonResolver = resolve<Webtoon, HookContext<WebtoonService>>({
     const tagsId = await context.app.service('webtoonsTags').find({
       query: {
         webtoon_id: webtoons.id,
-        $select: ['tag_id'],
+        $select: ['tag_id']
       }
     })
 
     const tags = tagsId.data.map((tag) => context.app.service('tags').get(tag.tag_id))
 
     return await Promise.all(tags)
+  }),
+  categories: virtual(async (webtoons, context) => {
+    const categoriesId = await context.app.service('webtoonsCategories').find({
+      query: {
+        webtoon_id: webtoons.id,
+        $select: ['category_id']
+      }
     })
+
+    const categories = categoriesId.data.map((category) =>
+      context.app.service('categories').get(category.category_id)
+    )
+
+    return await Promise.all(categories)
+  })
 })
 
 export const webtoonExternalResolver = resolve<Webtoon, HookContext<WebtoonService>>({

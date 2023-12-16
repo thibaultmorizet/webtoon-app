@@ -1,13 +1,11 @@
 // // For more information about this file see https://dove.feathersjs.com/guides/cli/service.schemas.html
-import { resolve, virtual } from '@feathersjs/schema'
-import { Type, getValidator, querySyntax } from '@feathersjs/typebox'
+import { resolve } from '@feathersjs/schema'
 import type { Static } from '@feathersjs/typebox'
+import { Type, getValidator, querySyntax } from '@feathersjs/typebox'
 
 import type { HookContext } from '../../declarations'
 import { dataValidator, queryValidator } from '../../validators'
 import type { WebtoonsTagsService } from './webtoonsTags.class'
-import { webtoonSchema } from '../webtoons/webtoons.schema'
-import { tagSchema } from '../tags/tags.schema'
 
 // Main data model schema
 export const webtoonsTagsSchema = Type.Object(

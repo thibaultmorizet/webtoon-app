@@ -4,6 +4,14 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { webtoonsCategoriesClient } from './services/webtoonsCategories/webtoonsCategories.shared'
+export type {
+  WebtoonsCategories,
+  WebtoonsCategoriesData,
+  WebtoonsCategoriesQuery,
+  WebtoonsCategoriesPatch
+} from './services/webtoonsCategories/webtoonsCategories.shared'
+
 import { webtoonsTagsClient } from './services/webtoonsTags/webtoonsTags.shared'
 export type {
   WebtoonsTags,
@@ -85,5 +93,6 @@ export const createClient = <Configuration = any,>(
   client.configure(artistClient)
   client.configure(webtoonClient)
   client.configure(webtoonsTagsClient)
+  client.configure(webtoonsCategoriesClient)
   return client
 }

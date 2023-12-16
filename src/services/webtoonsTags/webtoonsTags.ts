@@ -18,7 +18,6 @@ import type { Application } from '../../declarations'
 import { WebtoonsTagsService, getOptions } from './webtoonsTags.class'
 import { webtoonsTagsPath, webtoonsTagsMethods } from './webtoonsTags.shared'
 import { webtoonTagCreateCheck } from '../../hooks/webtoonTagCreateCheck'
-import { tag } from '../tags/tags'
 
 export * from './webtoonsTags.class'
 export * from './webtoonsTags.schema'
