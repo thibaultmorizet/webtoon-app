@@ -13,14 +13,12 @@ export async function up(knex: Knex): Promise<void> {
     table.integer('language_id')
     table.integer('status_id')
     table.integer('category_id')
-    table.date('created_at')
     table.date('updated_at')
     
     table.foreign('studio_id').references('id').inTable('studios')
     table.foreign('language_id').references('id').inTable('languages')
     table.foreign('status_id').references('id').inTable('status')
     table.foreign('category_id').references('id').inTable('categories')
-    
   })
 }
 

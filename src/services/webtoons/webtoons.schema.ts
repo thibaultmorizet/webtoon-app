@@ -35,7 +35,6 @@ export const webtoonSchema = Type.Object(
     authors: Type.Array(Type.Ref(authorSchema)),
     artists: Type.Array(Type.Ref(artistSchema)),
 
-    created_at: Type.String({ format: 'date' }),
     updated_at: Type.String({ format: 'date' })
   },
   { $id: 'Webtoon', additionalProperties: false }
@@ -110,9 +109,7 @@ export const webtoonDataSchema = Type.Pick(
 )
 export type WebtoonData = Static<typeof webtoonDataSchema>
 export const webtoonDataValidator = getValidator(webtoonDataSchema, dataValidator)
-export const webtoonDataResolver = resolve<Webtoon, HookContext<WebtoonService>>({
-  created_at: async () => new Date().toISOString()
-})
+export const webtoonDataResolver = resolve<Webtoon, HookContext<WebtoonService>>({})
 
 // Schema for updating existing entries
 export const webtoonPatchSchema = Type.Partial(webtoonSchema, {
@@ -135,7 +132,6 @@ export const webtoonQueryProperties = Type.Pick(webtoonSchema, [
   'language_id',
   'status_id',
   'category_id',
-  'created_at',
   'updated_at'
 ])
 export const webtoonQuerySchema = Type.Intersect(

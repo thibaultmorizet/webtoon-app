@@ -4,6 +4,22 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { tracksiteClient } from './services/tracksites/tracksites.shared'
+export type {
+  Tracksite,
+  TracksiteData,
+  TracksiteQuery,
+  TracksitePatch
+} from './services/tracksites/tracksites.shared'
+
+import { trackedWebtoonClient } from './services/trackedWebtoons/trackedWebtoons.shared'
+export type {
+  TrackedWebtoon,
+  TrackedWebtoonData,
+  TrackedWebtoonQuery,
+  TrackedWebtoonPatch
+} from './services/trackedWebtoons/trackedWebtoons.shared'
+
 import { webtoonsArtistsClient } from './services/webtoonsArtists/webtoonsArtists.shared'
 export type {
   WebtoonsArtists,
@@ -103,5 +119,7 @@ export const createClient = <Configuration = any,>(
   client.configure(webtoonsTagsClient)
   client.configure(webtoonsAuthorsClient)
   client.configure(webtoonsArtistsClient)
+  client.configure(trackedWebtoonClient)
+  client.configure(tracksiteClient)
   return client
 }
