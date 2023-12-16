@@ -20,14 +20,6 @@ export type {
   WebtoonsAuthorsPatch
 } from './services/webtoonsAuthors/webtoonsAuthors.shared'
 
-import { webtoonsCategoriesClient } from './services/webtoonsCategories/webtoonsCategories.shared'
-export type {
-  WebtoonsCategories,
-  WebtoonsCategoriesData,
-  WebtoonsCategoriesQuery,
-  WebtoonsCategoriesPatch
-} from './services/webtoonsCategories/webtoonsCategories.shared'
-
 import { webtoonsTagsClient } from './services/webtoonsTags/webtoonsTags.shared'
 export type {
   WebtoonsTags,
@@ -109,7 +101,6 @@ export const createClient = <Configuration = any,>(
   client.configure(artistClient)
   client.configure(webtoonClient)
   client.configure(webtoonsTagsClient)
-  client.configure(webtoonsCategoriesClient)
   client.configure(webtoonsAuthorsClient)
   client.configure(webtoonsArtistsClient)
   return client

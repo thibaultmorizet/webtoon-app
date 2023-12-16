@@ -1,6 +1,5 @@
 import { webtoonsArtists } from './webtoonsArtists/webtoonsArtists'
 import { webtoonsAuthors } from './webtoonsAuthors/webtoonsAuthors'
-import { webtoonsCategories } from './webtoonsCategories/webtoonsCategories'
 import { webtoonsTags } from './webtoonsTags/webtoonsTags'
 import { webtoon } from './webtoons/webtoons'
 import { artist } from './artists/artists'
@@ -17,7 +16,6 @@ import type { Application } from '../declarations'
 export const services = (app: Application) => {
   app.configure(webtoonsArtists)
   app.configure(webtoonsAuthors)
-  app.configure(webtoonsCategories)
   app.configure(webtoonsTags)
   app.configure(webtoon)
   app.configure(artist)
