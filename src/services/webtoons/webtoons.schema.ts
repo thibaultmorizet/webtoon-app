@@ -12,6 +12,7 @@ import { studioSchema } from '../studios/studios.schema'
 import { tagSchema } from '../tags/tags.schema'
 import type { WebtoonService } from './webtoons.class'
 import { authorSchema } from '../authors/authors.schema'
+import { artistSchema } from '../artists/artists.schema'
 
 // Main data model schema
 export const webtoonSchema = Type.Object(
@@ -31,6 +32,7 @@ export const webtoonSchema = Type.Object(
     tags: Type.Array(Type.Ref(tagSchema)),
     categories: Type.Array(Type.Ref(categorySchema)),
     authors: Type.Array(Type.Ref(authorSchema)),
+    artists: Type.Array(Type.Ref(artistSchema)),
 
     created_at: Type.String({ format: 'date' }),
     updated_at: Type.String({ format: 'date' }),
@@ -86,6 +88,18 @@ export const webtoonResolver = resolve<Webtoon, HookContext<WebtoonService>>({
     const authors = authorsId.data.map((author) => context.app.service('authors').get(author.author_id))
 
     return await Promise.all(authors)
+  }),
+  artists: virtual(async (webtoons, context) => {
+    const artistsId = await context.app.service('webtoonsArtists').find({
+      query: {
+        webtoon_id: webtoons.id,
+        $select: ['artist_id']
+      }
+    })
+
+    const artists = artistsId.data.map((artist) => context.app.service('artists').get(artist.artist_id))
+
+    return await Promise.all(artists)
   })
 })
 
