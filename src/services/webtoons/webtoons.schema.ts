@@ -1,16 +1,15 @@
 // // For more information about this file see https://dove.feathersjs.com/guides/cli/service.schemas.html
 import { resolve, virtual } from '@feathersjs/schema'
-import { Type, getValidator, querySyntax } from '@feathersjs/typebox'
 import type { Static } from '@feathersjs/typebox'
+import { Type, getValidator, querySyntax } from '@feathersjs/typebox'
 
 import type { HookContext } from '../../declarations'
 import { dataValidator, queryValidator } from '../../validators'
-import type { WebtoonService } from './webtoons.class'
-import { studioSchema } from '../studios/studios.schema'
 import { languageSchema } from '../languages/languages.schema'
 import { statusSchema } from '../status/status.schema'
-import { log } from 'console'
+import { studioSchema } from '../studios/studios.schema'
 import { tagSchema } from '../tags/tags.schema'
+import type { WebtoonService } from './webtoons.class'
 
 // Main data model schema
 export const webtoonSchema = Type.Object(
@@ -27,8 +26,7 @@ export const webtoonSchema = Type.Object(
     status_id: Type.Number(),
     status: Type.Ref(statusSchema),
 
-    // limited_tags: Type.Array(Type.Ref(tagSchema), { maxItems: 3, minItems: 0 }),
-    limited_tags: Type.Array(Type.Number()),
+    tags: Type.Array(Type.Ref(tagSchema), { maxItems: 3, minItems: 0 }),
 
     created_at: Type.String({ format: 'date' }),
     updated_at: Type.String({ format: 'date' }),
@@ -48,22 +46,18 @@ export const webtoonResolver = resolve<Webtoon, HookContext<WebtoonService>>({
   status: virtual(async (webtoons, context) => {
     return await context.app.service('status').get(webtoons.status_id)
   }),
-  limited_tags: virtual(async (webtoons, context) => {
+  tags: virtual(async (webtoons, context) => {
     const tagsId = await context.app.service('webtoonsTags').find({
       query: {
         webtoon_id: webtoons.id,
         $select: ['tag_id'],
-        $limit: 3
       }
     })
 
-    const tags = tagsId.data.map(async (tag) => {
-      return await context.app.service('tags').get(tag.tag_id)
-    })
+    const tags = tagsId.data.map((tag) => context.app.service('tags').get(tag.tag_id))
 
-    log(`tags: ${JSON.stringify(tags)}`)
-    return tags
-  })*
+    return await Promise.all(tags)
+    })
 })
 
 export const webtoonExternalResolver = resolve<Webtoon, HookContext<WebtoonService>>({
