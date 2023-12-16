@@ -8,7 +8,7 @@ export async function up(knex: Knex): Promise<void> {
     table.integer('number')
     table.string('title')
     table.string('release_date')
-    table.string('webtoon_id')
+    table.integer('webtoon_id')
 
     table.foreign('webtoon_id').references('id').inTable('webtoons')
   })

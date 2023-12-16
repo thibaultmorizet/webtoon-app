@@ -4,6 +4,9 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { imageClient } from './services/images/images.shared'
+export type { Image, ImageData, ImageQuery, ImagePatch } from './services/images/images.shared'
+
 import { episodeClient } from './services/episodes/episodes.shared'
 export type { Episode, EpisodeData, EpisodeQuery, EpisodePatch } from './services/episodes/episodes.shared'
 
@@ -125,5 +128,6 @@ export const createClient = <Configuration = any,>(
   client.configure(trackedWebtoonClient)
   client.configure(tracksiteClient)
   client.configure(episodeClient)
+  client.configure(imageClient)
   return client
 }
