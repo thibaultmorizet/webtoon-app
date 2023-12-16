@@ -1,3 +1,4 @@
+import { episode } from './episodes/episodes'
 import { tracksite } from './tracksites/tracksites'
 import { trackedWebtoon } from './trackedWebtoons/trackedWebtoons'
 import { webtoonsArtists } from './webtoonsArtists/webtoonsArtists'
@@ -16,6 +17,7 @@ import { user } from './users/users'
 import type { Application } from '../declarations'
 
 export const services = (app: Application) => {
+  app.configure(episode)
   app.configure(tracksite)
   app.configure(trackedWebtoon)
   app.configure(webtoonsArtists)

@@ -4,6 +4,9 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { episodeClient } from './services/episodes/episodes.shared'
+export type { Episode, EpisodeData, EpisodeQuery, EpisodePatch } from './services/episodes/episodes.shared'
+
 import { tracksiteClient } from './services/tracksites/tracksites.shared'
 export type {
   Tracksite,
@@ -121,5 +124,6 @@ export const createClient = <Configuration = any,>(
   client.configure(webtoonsArtistsClient)
   client.configure(trackedWebtoonClient)
   client.configure(tracksiteClient)
+  client.configure(episodeClient)
   return client
 }
