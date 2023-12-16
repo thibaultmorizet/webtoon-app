@@ -11,6 +11,7 @@ import { statusSchema } from '../status/status.schema'
 import { studioSchema } from '../studios/studios.schema'
 import { tagSchema } from '../tags/tags.schema'
 import type { WebtoonService } from './webtoons.class'
+import { authorSchema } from '../authors/authors.schema'
 
 // Main data model schema
 export const webtoonSchema = Type.Object(
@@ -29,10 +30,10 @@ export const webtoonSchema = Type.Object(
 
     tags: Type.Array(Type.Ref(tagSchema)),
     categories: Type.Array(Type.Ref(categorySchema)),
+    authors: Type.Array(Type.Ref(authorSchema)),
 
     created_at: Type.String({ format: 'date' }),
     updated_at: Type.String({ format: 'date' }),
-    deleted_at: Type.String({ format: 'date' })
   },
   { $id: 'Webtoon', additionalProperties: false }
 )
@@ -73,6 +74,18 @@ export const webtoonResolver = resolve<Webtoon, HookContext<WebtoonService>>({
     )
 
     return await Promise.all(categories)
+  }),
+  authors: virtual(async (webtoons, context) => {
+    const authorsId = await context.app.service('webtoonsAuthors').find({
+      query: {
+        webtoon_id: webtoons.id,
+        $select: ['author_id']
+      }
+    })
+
+    const authors = authorsId.data.map((author) => context.app.service('authors').get(author.author_id))
+
+    return await Promise.all(authors)
   })
 })
 
@@ -117,8 +130,7 @@ export const webtoonQueryProperties = Type.Pick(webtoonSchema, [
   'language_id',
   'status_id',
   'created_at',
-  'updated_at',
-  'deleted_at'
+  'updated_at'
 ])
 export const webtoonQuerySchema = Type.Intersect(
   [
