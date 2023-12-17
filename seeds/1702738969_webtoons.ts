@@ -9,9 +9,11 @@ export async function seed(knex: Knex): Promise<void> {
     {
       id: 1,
       title: 'Solo leveling',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl vitae aliquam ultricies, nunc nisl ultricies nunc, vitae aliqu',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl vitae aliquam ultricies, nunc nisl ultricies nunc, vitae aliqu',
       poster: 'poster.png',
       release_date: '2019-26-09',
+      is_importing: false,
       studio_id: 1,
       language_id: 1,
       status_id: 1,

@@ -9,6 +9,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string('description')
     table.string('poster')
     table.date('release_date')
+    table.boolean('is_importing')
     table.integer('studio_id')
     table.integer('language_id')
     table.integer('status_id')

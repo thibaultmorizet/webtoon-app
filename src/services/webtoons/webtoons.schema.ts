@@ -22,6 +22,7 @@ export const webtoonSchema = Type.Object(
     description: Type.String(),
     poster: Type.String(),
     release_date: Type.String({ format: 'date' }),
+    is_importing: Type.Boolean(),
     studio_id: Type.Number(),
     studio: Type.Ref(studioSchema),
     language_id: Type.Number(),
@@ -102,7 +103,17 @@ export const webtoonExternalResolver = resolve<Webtoon, HookContext<WebtoonServi
 // Schema for creating new entries
 export const webtoonDataSchema = Type.Pick(
   webtoonSchema,
-  ['title', 'description', 'poster', 'release_date', 'studio_id', 'language_id', 'status_id', 'category_id'],
+  [
+    'title',
+    'description',
+    'poster',
+    'release_date',
+    'is_importing',
+    'studio_id',
+    'language_id',
+    'status_id',
+    'category_id'
+  ],
   {
     $id: 'WebtoonData'
   }
@@ -128,6 +139,7 @@ export const webtoonQueryProperties = Type.Pick(webtoonSchema, [
   'description',
   'poster',
   'release_date',
+  'is_importing',
   'studio_id',
   'language_id',
   'status_id',
