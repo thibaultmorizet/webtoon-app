@@ -16,6 +16,7 @@ export const userSchema = Type.Object(
     firstname: Type.String(),
     email: Type.String(),
     password: Type.Optional(Type.String()),
+    force_to_update_password: Type.Boolean(),
     roles: Type.String()
   },
   { $id: 'User', additionalProperties: false }
@@ -36,7 +37,8 @@ export const userDataSchema = Type.Pick(userSchema, ['lastname', 'firstname', 'e
 export type UserData = Static<typeof userDataSchema>
 export const userDataValidator = getValidator(userDataSchema, dataValidator)
 export const userDataResolver = resolve<User, HookContext<UserService>>({
-  password: passwordHash({ strategy: 'local' })
+  password: passwordHash({ strategy: 'local' }),
+  force_to_update_password: async () => false
 })
 
 // Schema for updating existing entries
@@ -50,7 +52,15 @@ export const userPatchResolver = resolve<User, HookContext<UserService>>({
 })
 
 // Schema for allowed query properties
-export const userQueryProperties = Type.Pick(userSchema, ['id', 'email'])
+export const userQueryProperties = Type.Pick(userSchema, [
+  'id',
+  'lastname',
+  'firstname',
+  'email',
+  'password',
+  'force_to_update_password',
+  'roles'
+])
 export const userQuerySchema = Type.Intersect(
   [
     querySyntax(userQueryProperties),

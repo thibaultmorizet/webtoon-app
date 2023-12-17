@@ -9,7 +9,8 @@ export async function up(knex: Knex): Promise<void> {
     table.string('lastname').notNullable()
     table.string('firstname').notNullable()
     table.string('roles').notNullable()
-    table.string('password')
+    table.string('password'),
+    table.boolean('force_to_update_password')
   })
 }
 
