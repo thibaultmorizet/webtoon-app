@@ -5,5 +5,5 @@ export async function seed(knex: Knex): Promise<void> {
   await knex('tracksites').del()
 
   // Inserts seed entries
-  await knex('tracksites').insert([{ id: 1, name: 'mangadex', url: 'https://mangadex.org' }])
+  await knex('tracksites').insert([{ id: 1, name: 'mangadex', url: 'https://api.mangadex.org' }])
 }
