@@ -11,7 +11,7 @@ import type { LanguageService } from './languages.class'
 export const languageSchema = Type.Object(
   {
     id: Type.Number(),
-    language: Type.String()
+    name: Type.String()
   },
   { $id: 'Language', additionalProperties: false }
 )
@@ -22,7 +22,7 @@ export const languageResolver = resolve<Language, HookContext<LanguageService>>(
 export const languageExternalResolver = resolve<Language, HookContext<LanguageService>>({})
 
 // Schema for creating new entries
-export const languageDataSchema = Type.Pick(languageSchema, ['language'], {
+export const languageDataSchema = Type.Pick(languageSchema, ['name'], {
   $id: 'LanguageData'
 })
 export type LanguageData = Static<typeof languageDataSchema>
@@ -38,7 +38,7 @@ export const languagePatchValidator = getValidator(languagePatchSchema, dataVali
 export const languagePatchResolver = resolve<Language, HookContext<LanguageService>>({})
 
 // Schema for allowed query properties
-export const languageQueryProperties = Type.Pick(languageSchema, ['id', 'language'])
+export const languageQueryProperties = Type.Pick(languageSchema, ['id', 'name'])
 export const languageQuerySchema = Type.Intersect(
   [
     querySyntax(languageQueryProperties),
