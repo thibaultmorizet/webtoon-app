@@ -1,7 +1,7 @@
 // // For more information about this file see https://dove.feathersjs.com/guides/cli/service.schemas.html
 import { resolve } from '@feathersjs/schema'
-import { Type, getValidator, querySyntax } from '@feathersjs/typebox'
 import type { Static } from '@feathersjs/typebox'
+import { Type, getValidator, querySyntax } from '@feathersjs/typebox'
 
 import type { HookContext } from '../../declarations'
 import { dataValidator, queryValidator } from '../../validators'
@@ -11,7 +11,8 @@ import type { LanguageService } from './languages.class'
 export const languageSchema = Type.Object(
   {
     id: Type.Number(),
-    name: Type.String()
+    name: Type.String(),
+    key: Type.String()
   },
   { $id: 'Language', additionalProperties: false }
 )
@@ -22,7 +23,7 @@ export const languageResolver = resolve<Language, HookContext<LanguageService>>(
 export const languageExternalResolver = resolve<Language, HookContext<LanguageService>>({})
 
 // Schema for creating new entries
-export const languageDataSchema = Type.Pick(languageSchema, ['name'], {
+export const languageDataSchema = Type.Pick(languageSchema, ['name', 'key'], {
   $id: 'LanguageData'
 })
 export type LanguageData = Static<typeof languageDataSchema>
@@ -38,7 +39,7 @@ export const languagePatchValidator = getValidator(languagePatchSchema, dataVali
 export const languagePatchResolver = resolve<Language, HookContext<LanguageService>>({})
 
 // Schema for allowed query properties
-export const languageQueryProperties = Type.Pick(languageSchema, ['id', 'name'])
+export const languageQueryProperties = Type.Pick(languageSchema, ['id', 'name', 'key'])
 export const languageQuerySchema = Type.Intersect(
   [
     querySyntax(languageQueryProperties),
